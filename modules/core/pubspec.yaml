@@ -1,0 +1,44 @@
+name: core
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons:
+  logger:
+  hive:
+  hive_flutter:
+  flutter_riverpod:
+  dio:
+  http_parser:
+  equatable:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints:
+  custom_lint:
+  riverpod_lint:
+  freezed:
+  build_runner:
+  json_serializable:
+  flutter_gen_runner:
+
+flutter_gen:
+  output: lib/src/generated
+  line_length: 80
+
+  integrations:
+    flutter_svg: true
+
+flutter:
+  uses-material-design: true
