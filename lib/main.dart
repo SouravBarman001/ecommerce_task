@@ -19,13 +19,12 @@ class MyApp extends ConsumerStatefulWidget {
   @override
   ConsumerState<MyApp> createState() => _MyAppState();
 }
-
 class _MyAppState extends ConsumerState<MyApp> {
   @override
   void initState() {
     super.initState();
     Future(() {
-      ref.read(cacheServiceProvider).init();
+      ref.read(cacheServiceProvider).init();  // Initialize cache service
     });
   }
 
@@ -45,9 +44,6 @@ class _MyAppState extends ConsumerState<MyApp> {
     );
   }
 }
-
-
-
 
 
 
