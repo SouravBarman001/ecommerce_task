@@ -86,14 +86,19 @@ flutter run
 ecommerce_task/
 │
 ├── lib/
-│   ├── features/         # Feature-specific UI & logic
-│   ├── core/             # Shared core logic (Clean Arch)
-│   └── main.dart         # Entry point
+│   ├── core/               # Shared utilities, constants, exceptions, etc.
+│   ├── features/           # Feature modules
+│   │   └── home/           # Home feature
+│   │       ├── data/       # Data sources, models, repositories (API/Hive)
+│   │       ├── domain/     # Entities, use cases, repository interfaces
+│   │       └── presentation/ # UI widgets, screens, and state management
+│   └── main.dart           # App entry point
 │
 ├── modules/
-│   └── core/             # Local package for core logic
+│   └── core/               # Local package for shared business logic (if separate from lib/core)
 │
-└── pubspec.yaml
+└── pubspec.yaml            # Project dependencies and assets
+
 ```
 
 ---
