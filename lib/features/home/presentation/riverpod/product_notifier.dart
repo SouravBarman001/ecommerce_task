@@ -4,18 +4,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/models/product_model.dart';
 import '../../domain/usecases/product_usecase.dart';
-
 enum SortType { none, priceLowToHigh, priceHighToLow, rating }
 
 class ProductNotifier extends Notifier<BaseState> {
   late final ProductUseCases productUseCases;
   final ScrollController scrollController = ScrollController();
-  final TextEditingController searchController = TextEditingController();
 
   List<ProductModel> allProducts = [];
   List<ProductModel> filteredProducts = [];
   List<ProductModel> visibleProducts = [];
-  int limitData = 5;
+
+  //int limitData = 5;
   String currentQuery = '';
   SortType currentSort = SortType.none;
 
@@ -33,20 +32,32 @@ class ProductNotifier extends Notifier<BaseState> {
       state = state.copyWith(status: Status.error, message: error.message);
     } else {
       allProducts = products!;
-      applySearchAndSort(); // trigger initial load
+      //limitData = 5;
+      applySearchAndSort(); // applies filtering + pagination
     }
+  }
+
+  void search(String query) {
+    currentQuery = query;
+    //limitData = 5;
+    applySearchAndSort();
+  }
+
+  void sort(SortType sortType) {
+    currentSort = sortType;
+    //limitData = 5;
+    applySearchAndSort();
   }
 
   void applySearchAndSort() {
     List<ProductModel> temp = [...allProducts];
 
-    // 🔎 Search
     if (currentQuery.isNotEmpty) {
-      temp = temp.where((e) =>
-          e.title.toLowerCase().contains(currentQuery.toLowerCase())).toList();
+      temp = temp
+          .where((e) => e.title.toLowerCase().contains(currentQuery.toLowerCase()))
+          .toList();
     }
 
-    // ↕ Sort
     switch (currentSort) {
       case SortType.priceLowToHigh:
         temp.sort((a, b) => a.price.compareTo(b.price));
@@ -61,30 +72,31 @@ class ProductNotifier extends Notifier<BaseState> {
         break;
     }
 
-    filteredProducts = temp.take(limitData).toList();
-    state = state.copyWith(status: Status.success, data: filteredProducts);
-  }
-
-  void search(String query) {
-    currentQuery = query;
-    applySearchAndSort();
-  }
-
-  void sort(SortType sortType) {
-    currentSort = sortType;
-    applySearchAndSort();
+    filteredProducts = temp;
+    _updateVisibleProducts();
   }
 
   void _updateVisibleProducts() {
-    visibleProducts = filteredProducts.take(limitData).toList();
+    visibleProducts = filteredProducts.take(20).toList();
     state = state.copyWith(status: Status.success, data: visibleProducts);
   }
 
-  void _scrollListener() {
-    if (scrollController.position.pixels ==
-        scrollController.position.maxScrollExtent) {
-      limitData += 5;
-      _updateVisibleProducts(); // just extend visible, not re-filter
+  bool isLoadingMore = false;
+
+  void _scrollListener() async {
+    if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+      if (!isLoadingMore) {
+        isLoadingMore = true;
+
+        // Simulate network delay (optional)
+        await Future.delayed(const Duration(seconds: 1));
+
+       // limitData += 5;
+        _updateVisibleProducts();
+
+        isLoadingMore = false;
+      }
     }
   }
+
 }

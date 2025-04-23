@@ -25,6 +25,7 @@ dependencies:
   flutter_screenutil:
   flutter_rating_bar:
   percent_indicator:
+  flutter_spinkit: ^5.2.0
   core:
     path: modules/core
 

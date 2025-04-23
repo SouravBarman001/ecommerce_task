@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:core/core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../riverpod/product_list_notifier.dart';
 import '../riverpod/product_provider.dart';
 import '../riverpod/search_text_provider.dart';
@@ -39,127 +40,42 @@ class _ProductListState extends ConsumerState<ProductList> {
     if (productState.status == Status.loading) {
       return const Center(child: CircularProgressIndicator());
     } else if (productState.status == Status.success) {
-      final products = productState.data as List<ProductModel>;
+      final notifier = ref.watch(productNotifierProvider.notifier);
+      final isLoadingMore = notifier.isLoadingMore;
+      final products = state.data as List<ProductModel>;
 
       return Padding(
         padding: EdgeInsets.all(12.0.w),
-        child: GridView.builder(
-          controller: ref.read(productNotifierProvider.notifier).scrollController,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate:
-          SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 12.w,
-            mainAxisSpacing: 1.h,
-            childAspectRatio: 0.66,
-          ),
-          itemCount: products.length,
-          itemBuilder: (context, index) {
-            final product = products[index];
-            return Card(
-              color: Colors.white54,
-              elevation: 0,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Stack(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(5.r),
-                          topRight: Radius.circular(5.r),
-                        ),
-                        child: Image.network(
-                          product.image,
-                          height: 140.h,
-                          width: double.infinity,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      Positioned(
-                        top: 8.h,
-                        right: 8.w,
-                        child: const Icon(
-                          true
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          color: true
-                              ? Colors.red
-                              : Colors.grey,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0.w),
-                    child: Text(
-                      product.title,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14.sp),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                    EdgeInsets.symmetric(horizontal: 8.0.w),
-                    child: Row(
-                      children: [
-                        Text(
-                          "\$${product.price}",
-                          style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(width: 5.w),
-                        Text(
-                          "\$${150}",
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: Colors.grey,
-                            decoration:
-                            TextDecoration.lineThrough,
-                          ),
-                        ),
-                        SizedBox(width: 3.w),
-                        Text(
-                          "{20% OFF}",
-                          style: TextStyle(
-                              fontSize: 7.sp,
-                              color: Colors.orange),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0.w),
-                    child: Row(
-                      children: [
-                        Icon(Icons.star,
-                            size: 16.sp, color: Colors.amber),
-                        SizedBox(width: 4.w),
-                        Text(
-                          product.rating.rate.toString(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12.sp),
-                        ),
-                        Text(
-                          " (${product.rating.count})",
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12.sp),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+        child: Column(
+          children: [
+            GridView.builder(
+              controller: notifier.scrollController,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 12.w,
+                mainAxisSpacing: 1.h,
+                childAspectRatio: 0.66,
               ),
-            );
-          },
-        ),
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                final product = products[index];
+                return _buildProductCard(product); // move your Card UI to a method
+              },
+            ),
+            if (isLoadingMore)
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 20.h),
+                child: const Center(
+                  child: SpinKitThreeBounce(
+                    color: Colors.grey,
+                    size: 30.0,
+                  ),
+                ),
+              ),
+          ],
+        )
       );
     }
     else{
@@ -172,5 +88,109 @@ class _ProductListState extends ConsumerState<ProductList> {
       );
     }
 
+  }
+
+  Widget _buildProductCard(ProductModel product) {
+    return Card(
+      color: Colors.white54,
+      elevation: 0,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(5.r),
+                  topRight: Radius.circular(5.r),
+                ),
+                child: Image.network(
+                  product.image,
+                  height: 140.h,
+                  width: double.infinity,
+                  fit: BoxFit.contain,
+                ),
+              ),
+              Positioned(
+                top: 8.h,
+                right: 8.w,
+                child: const Icon(
+                  true
+                      ? Icons.favorite
+                      : Icons.favorite_border,
+                  color: true
+                      ? Colors.red
+                      : Colors.grey,
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0.w),
+            child: Text(
+              product.title,
+              style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14.sp),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          Padding(
+            padding:
+            EdgeInsets.symmetric(horizontal: 8.0.w),
+            child: Row(
+              children: [
+                Text(
+                  "\$${product.price}",
+                  style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(width: 5.w),
+                Text(
+                  "\$${150}",
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    color: Colors.grey,
+                    decoration:
+                    TextDecoration.lineThrough,
+                  ),
+                ),
+                SizedBox(width: 3.w),
+                Text(
+                  "{20% OFF}",
+                  style: TextStyle(
+                      fontSize: 7.sp,
+                      color: Colors.orange),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0.w),
+            child: Row(
+              children: [
+                Icon(Icons.star,
+                    size: 16.sp, color: Colors.amber),
+                SizedBox(width: 4.w),
+                Text(
+                  product.rating.rate.toString(),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12.sp),
+                ),
+                Text(
+                  " (${product.rating.count})",
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12.sp),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
