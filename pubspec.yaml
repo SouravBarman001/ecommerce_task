@@ -37,6 +37,8 @@ dev_dependencies:
   flutter_lints:
   hive_generator:
   build_runner:
+  mocktail:
+  riverpod_test:
 
   lints:
   very_good_analysis:

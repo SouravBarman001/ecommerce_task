@@ -3,7 +3,6 @@ import 'package:ecommerce_task/features/home/presentation/pages/product_list.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../riverpod/product_provider.dart';
 
 import '../riverpod/search_text_provider.dart';
@@ -27,6 +26,8 @@ class _HomePageState extends ConsumerState<HomePage> {
       ref.read(productNotifierProvider.notifier).fetchFeaturedProduct();
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
