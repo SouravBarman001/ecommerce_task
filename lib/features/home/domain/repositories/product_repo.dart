@@ -11,6 +11,6 @@ final productRepoProvider = Provider<ProductRepo>((ref) {
 });
 
 abstract class ProductRepo {
-  Future<(ErrorModel?, List<ProductModel>?)> Products();
+  Future<(ErrorModel?, List<ProductModel>?)> products();
   Future<(ErrorModel?, List<ProductModel>?)> limitFeaturedProducts(int limit);
 }

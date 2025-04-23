@@ -4,27 +4,27 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/models/product_model.dart';
 import '../repositories/product_repo.dart';
 
-final featuredUseCaseProvider = Provider<FeaturedProductUseCases>(
-      (ref) => FeaturedProductUseCases(
-    featuredRepo: ref.watch(productRepoProvider),
+final productUseCaseProvider = Provider<ProductUseCases>(
+      (ref) => ProductUseCases(
+    productRepo: ref.watch(productRepoProvider),
   ),
 );
 
-class FeaturedProductUseCases {
-  FeaturedProductUseCases({
-    required this.featuredRepo,
+class ProductUseCases {
+  ProductUseCases({
+    required this.productRepo,
   });
 
-  final ProductRepo featuredRepo;
+  final ProductRepo productRepo;
 
   Future<(ErrorModel?, List<ProductModel>?)> productList() async {
-    final response = await featuredRepo.Products();
+    final response = await productRepo.products();
     return response;
   }
 
   Future<(ErrorModel?, List<ProductModel>?)> limitProductList(
       int limit,) async {
-    final response = await featuredRepo.limitFeaturedProducts(limit);
+    final response = await productRepo.limitFeaturedProducts(limit);
     return response;
   }
 }

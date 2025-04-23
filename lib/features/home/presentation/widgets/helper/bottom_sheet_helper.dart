@@ -2,50 +2,62 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../riverpod/product_list_notifier.dart';
+import '../../riverpod/product_notifier.dart';
+import '../../riverpod/product_provider.dart';
 
 
 
 class BottomSheetHelper {
-  static void showFilterBottomSheet(BuildContext context, WidgetRef ref) {
 
+  BottomSheetHelper.showFilterBottomSheet(BuildContext context, WidgetRef ref) {
     showModalBottomSheet(
       context: context,
-      builder: (context) {
-        return Container(
-          padding: EdgeInsets.all(16.0.w),
-          height: 270.h,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ListTile(
-                leading: Text('Sort By', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
-                trailing: IconButton(icon: const Icon(Icons.close), onPressed: () => Navigator.pop(context)),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(0)),
+      ),
+      builder: (_) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              title: const Text(
+                "Sort by",
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
               ),
-              ListTile(
-                title: Text('Price - High to Low', style: TextStyle(fontSize: 14.sp)),
-                onTap: () {
-                  ref.read(productProvider.notifier).updateSortType('priceHighToLow');
-                  Navigator.pop(context);
-                },
+              trailing: IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: () => Navigator.pop(context),
               ),
-              ListTile(
-                title: Text('Price - Low to High', style: TextStyle(fontSize: 14.sp)),
-                onTap: () {
-                  ref.read(productProvider.notifier).updateSortType('priceLowToHigh');
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                title: Text('Rating', style: TextStyle(fontSize: 14.sp)),
-                onTap: () {
-                  ref.read(productProvider.notifier).updateSortType('rating');
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
+            ),
+            ListTile(
+              title: const Text("Price: Low to High"),
+              onTap: () {
+                ref.read(productNotifierProvider.notifier)
+                    .sort(SortType.priceLowToHigh);
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text("Price: High to Low"),
+              onTap: () {
+                ref.read(productNotifierProvider.notifier)
+                    .sort(SortType.priceHighToLow);
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text("Rating"),
+              onTap: () {
+                ref.read(productNotifierProvider.notifier).sort(SortType.rating);
+                Navigator.pop(context);
+              },
+            ),
+            SizedBox(height: 10),
+          ],
         );
       },
     );
   }
+
+
 }

@@ -12,8 +12,8 @@ class ProductRepoImpl implements ProductRepo {
   ProductDataSource productDataSource;
 
   @override
-  Future<(ErrorModel?, List<ProductModel>?)> Products() async {
-    return productDataSource.featuredItems().guard(
+  Future<(ErrorModel?, List<ProductModel>?)> products() async {
+    return productDataSource.productItems().guard(
           (data) {
         final featuredModels = List<ProductModel>.from(
           (data as List).map(

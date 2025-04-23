@@ -10,7 +10,7 @@ class ProductDataSourceImpl implements ProductDataSource {
   final RestClient client;
 
   @override
-  Future<Response> featuredItems() async {
+  Future<Response> productItems() async {
     final response = await client.get(
       APIType.public,
       API.allProducts,

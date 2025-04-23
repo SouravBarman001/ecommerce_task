@@ -7,6 +7,6 @@ final productDataResourceProvider = Provider<ProductDataSource>((ref) {
 });
 
 abstract class ProductDataSource {
-  Future<Response> featuredItems();
+  Future<Response> productItems();
   Future<Response> limitItems(int limit);
 }
