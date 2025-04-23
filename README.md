@@ -7,12 +7,10 @@ Sure! Here's a well-organized `README.md` for your Flutter e-commerce task proje
 
 A modern Flutter e-commerce app designed with **Clean Architecture** and powered by **Riverpod**, **Dio**, and **Hive** (cache memory). This project demonstrates scalable Flutter development using layered architecture and best practices.
 
+![Screenshot 1](https://github.com/SouravBarman001/ecommerce_task/blob/main/screenshots/one.png)
+![Screenshot 2](https://github.com/SouravBarman001/ecommerce_task/blob/main/screenshots/two.png)
+![Screenshot 3](https://github.com/SouravBarman001/ecommerce_task/blob/main/screenshots/three.png)
 
-<p align="center">
-  <img src="https://github.com/SouravBarman001/ecommerce_task/blob/main/screenshots/one.png" width="400"/>
-  <img src="https://github.com/SouravBarman001/ecommerce_task/blob/main/screenshots/two.png" width="400"/>
-  <img src="https://github.com/SouravBarman001/ecommerce_task/blob/main/screenshots/three.png" width="400"/>
-</p>
 
 
 
@@ -129,10 +127,3 @@ ecommerce_task/
 Feel free to fork, clone, or submit a pull request. Contributions are welcome!
 
 ---
-
-## 📃 License
-
-This project is licensed under the MIT License.
-```
-
-Let me know if you'd like me to generate the `LICENSE`, add CI/CD badges, or format this for GitHub automatically.
