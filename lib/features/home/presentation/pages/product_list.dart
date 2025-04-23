@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_task/features/home/data/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -104,11 +105,10 @@ class _ProductListState extends ConsumerState<ProductList> {
                   topLeft: Radius.circular(5.r),
                   topRight: Radius.circular(5.r),
                 ),
-                child: Image.network(
-                  product.image,
+                child: CachedNetworkImage(
                   height: 140.h,
                   width: double.infinity,
-                  fit: BoxFit.contain,
+                  fit: BoxFit.contain, imageUrl: product.image,
                 ),
               ),
               Positioned(
