@@ -1,4 +1,3 @@
-Sure! Here's a well-organized `README.md` for your Flutter e-commerce task project, structured to clearly present the project overview, setup instructions, features, and architecture choices:
 
 ---
  
@@ -7,7 +6,7 @@ Sure! Here's a well-organized `README.md` for your Flutter e-commerce task proje
 
 A modern Flutter e-commerce app designed with **Clean Architecture** and powered by **Riverpod**, **Dio**, and **Hive** (cache memory). This project demonstrates scalable Flutter development using layered architecture and best practices.
 
-![Screenshot 1](https://github.com/SouravBarman001/ecommerce_task/blob/main/screenshots/one.png)
+![image one](https://github.com/SouravBarman001/ecommerce_task/blob/main/screenshots/one.png)
 ![Screenshot 2](https://github.com/SouravBarman001/ecommerce_task/blob/main/screenshots/two.png)
 ![Screenshot 3](https://github.com/SouravBarman001/ecommerce_task/blob/main/screenshots/three.png)
 
