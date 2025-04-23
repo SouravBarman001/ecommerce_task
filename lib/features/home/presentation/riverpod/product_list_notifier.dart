@@ -1,7 +1,13 @@
 
-
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+
+
+// Provider for paginated products
+final productProvider = StateNotifierProvider<ProductListNotifier, List<Map<String, dynamic>>>(
+      (ref) => ProductListNotifier(),
+);
+
 
 class ProductListNotifier extends StateNotifier<List<Map<String, dynamic>>> {
   ProductListNotifier() : super([]);
@@ -27,71 +33,69 @@ class ProductListNotifier extends StateNotifier<List<Map<String, dynamic>>> {
       'reviews': 87,
       'isFavorite': false,
     },
-     {
-        'image': 'https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg',
-        'name': 'Fossil Gen 5E Smartwatch',
-        'price': 249,
-        'oldPrice': 299,
-        'discount': '17% OFF',
-        'rating': 4.5,
-        'reviews': 32,
-        'isFavorite': false,
-      },
-      {
-        'image': 'https://fakestoreapi.com/img/61pHAEJ4NML._AC_UL640_QL65_ML3_.jpg',
-        'name': 'H&M Slim Fit Chinos',
-        'price': 35,
-        'oldPrice': 40.25,
-        'discount': '15% OFF',
-        'rating': 4.3,
-        'reviews': 41,
-        'isFavorite': true,
-      },
-      {
-        'image': 'https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg',
-        'name': 'Fossil Gen 5E Smartwatch',
-        'price': 249,
-        'oldPrice': 299,
-        'discount': '17% OFF',
-        'rating': 4.5,
-        'reviews': 32,
-        'isFavorite': false,
-      },
-      {
-        'image': 'https://fakestoreapi.com/img/61pHAEJ4NML._AC_UL640_QL65_ML3_.jpg',
-        'name': 'H&M Slim Fit Chinos',
-        'price': 35,
-        'oldPrice': 40.25,
-        'discount': '15% OFF',
-        'rating': 4.3,
-        'reviews': 41,
-        'isFavorite': true,
-      },
-
-      {
-        'image': 'https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg',
-        'name': 'Fossil Gen 5E Smartwatch',
-        'price': 249,
-        'oldPrice': 299,
-        'discount': '17% OFF',
-        'rating': 4.5,
-        'reviews': 32,
-        'isFavorite': false,
-      },
-      {
-        'image': 'https://fakestoreapi.com/img/61pHAEJ4NML._AC_UL640_QL65_ML3_.jpg',
-        'name': 'H&M Slim Fit Chinos',
-        'price': 35,
-        'oldPrice': 40.25,
-        'discount': '15% OFF',
-        'rating': 4.3,
-        'reviews': 41,
-        'isFavorite': true,
-      },
-
+    {
+      'image': 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
+      'name': 'Allen Solly Regular fit cotton shirt',
+      'price': 35,
+      'oldPrice': 40.25,
+      'discount': '15% OFF',
+      'rating': 4.3,
+      'reviews': 41,
+      'isFavorite': true,
+    },
+    {
+      'image': 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
+      'name': 'Calvin Clein Regular fit slim fit shirt',
+      'price': 52,
+      'oldPrice': 62.4,
+      'discount': '20% OFF',
+      'rating': 4.1,
+      'reviews': 87,
+      'isFavorite': false,
+    },
+    {
+      'image': 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
+      'name': 'Allen Solly Regular fit cotton shirt',
+      'price': 35,
+      'oldPrice': 40.25,
+      'discount': '15% OFF',
+      'rating': 4.3,
+      'reviews': 41,
+      'isFavorite': true,
+    },
+    {
+      'image': 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
+      'name': 'Calvin Clein Regular fit slim fit shirt',
+      'price': 52,
+      'oldPrice': 62.4,
+      'discount': '20% OFF',
+      'rating': 4.1,
+      'reviews': 87,
+      'isFavorite': false,
+    },
+    {
+      'image': 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
+      'name': 'Allen Solly Regular fit cotton shirt',
+      'price': 35,
+      'oldPrice': 40.25,
+      'discount': '15% OFF',
+      'rating': 4.3,
+      'reviews': 41,
+      'isFavorite': true,
+    },
+    {
+      'image': 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
+      'name': 'Calvin Clein Regular fit slim fit shirt',
+      'price': 52,
+      'oldPrice': 62.4,
+      'discount': '20% OFF',
+      'rating': 4.1,
+      'reviews': 87,
+      'isFavorite': false,
+    },
   ];
 
-  // To store the sort type (price, rating)
+  // Store the current sorting type
   String sortType = 'priceLowToHigh';
 
   // Function to update products based on sorting
