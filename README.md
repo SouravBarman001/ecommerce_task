@@ -6,10 +6,12 @@
 
 A modern Flutter e-commerce app designed with **Clean Architecture** and powered by **Riverpod**, **Dio**, and **Hive** (cache memory). This project demonstrates scalable Flutter development using layered architecture and best practices.
 
-![image one](https://github.com/SouravBarman001/ecommerce_task/blob/main/screenshots/one.png)
-![Screenshot 2](https://github.com/SouravBarman001/ecommerce_task/blob/main/screenshots/two.png)
-![Screenshot 3](https://github.com/SouravBarman001/ecommerce_task/blob/main/screenshots/three.png)
 
+<p align="center">
+  <img src="https://github.com/SouravBarman001/ecommerce_task/blob/main/screenshots/one.png?raw=true" width="400" alt="Image One"/>
+  <img src="https://github.com/SouravBarman001/ecommerce_task/blob/main/screenshots/two.png?raw=true" width="400" alt="Screenshot 2"/>
+  <img src="https://github.com/SouravBarman001/ecommerce_task/blob/main/screenshots/three.png?raw=true" width="400" alt="Screenshot 3"/>
+</p>
 
 
 
